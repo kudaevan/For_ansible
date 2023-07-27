@@ -1,12 +1,23 @@
 
-[staging_servers]
-linux1 ansible_host=192.168.122.202 ansible_user=root ansible_ssh_private_key_file=/home/kan/.ssh/ansible
-linux2 ansible_host=192.168.122.52  ansible_user=root ansible_ssh_private_key_file=/home/kan/.ssh/ansible
+[staging_servers_WEB]
+linux1 ansible_host=192.168.122.202 
+linux2 ansible_host=192.168.122.52
 
-[prod_servers]
+[prod_servers_WEB]
 linux3 ansible_host=192.168.122.184 
 linux4 ansible_host=192.168.122.106
 
-[prod_servers:vars]
-ansible_user=root
-ansible_ssh_private_key_file=/home/kan/.ssh/ansible
+[staging_servers_DB]
+#172.31.27.1
+#172.31.27.2
+
+[prod_servers_DB]
+#172.32.27.10
+#172.32.27.20
+
+[all_servers_DB:children]
+staging_servers_DB
+prod_servers_DB
+
+
+
