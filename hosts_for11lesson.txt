@@ -4,9 +4,10 @@
 
 
 [prod_servers_WEB]
-linux3 ansible_host=192.168.122.184  owner=Vasya 
-linux4 ansible_host=192.168.122.106  owner=Petya
-linux2 ansible_host=192.168.122.52   owner=Nikolay
+linux3 ansible_host=192.168.122.184 owner=Vasya
+linux4 ansible_host=192.168.122.106 owner=Petya
+linux2 ansible_host=192.168.122.52  owner=Nukolaya
+
 
 #[staging_servers_DB]
 #172.31.27.1
