@@ -9,8 +9,11 @@
     destin_file: /var/www/html
 
 
-
   tasks:
+
+  - name: Check and print OS family
+    debug: var=ansible_os_family
+
   - name: Install Apache Web Server
     yum: name=httpd state=latest
 
