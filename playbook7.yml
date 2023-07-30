@@ -35,20 +35,20 @@
 
     when: ansible_os_family == "Debian"
 
-
+  - name: Genegate INDEX.HTML
+    template: src={{ source_folder}}/index.j2 dest={{destin_folder}}/index.html mode=0555
+    notify:
+    - Restart Apache RedHat
+    - Restart Apache Debian
 
   - name: Copy MyHomePage to Servers
-    copy: src={{ item }} dest={{ destin_folder }} mode=0555
-    with_fileglob: "{{ source_folder }}/*.*"
-
-
-#    loop: 
-#       - "index.html"
-#       - "facial1.jpg"
-#       - "facial2.jpg"
-#       - "facial3.jpg"
-#       - "logo.jpg"
-#       - "home.jpg"
+    copy: src={{ source_folder }}/{{ item }} dest={{ destin_folder }} mode=0555
+    loop: 
+       - "facial1.jpg"
+       - "facial2.jpg"
+       - "facial3.jpg"
+       - "logo.jpg"
+       - "home.jpg"
     notify:
     - Restart Apache RedHat
     - Restart Apache Debian

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Didula Salon</title>
+        <title> Server ip adresses {{ ansible_all_ipv4_addresses }}</title>
         
         <style>
             body{
@@ -123,14 +123,14 @@
             <div class="header">
                 <div class="left">
                     <div id="image"><img src="Images/logo.jpg"></div>
-                    <div id="text"><p id="title">DIDULA SALON</p></div>
+                    <div id="text"><p id="title">{{ owner }}</p></div>
                 </div>
                 <div class="right">
                     <ul>
                         <li><a href="contact_us.html" target="body">Contact Us</a></li>
                         <li><a href="gallery.html" target="body">Gallery</a></li>
-                        <li><a href="service.html" target="body">Our Services</a></li>
-                        <li><a href="home.html" target="body">Home</a></li>
+                        <li><a href="service.html" target="body">{{ansible_env.SSH_CONNECTION }}</a></li>
+                        <li><a href="home.html" target="body">{{ansible_ens5.macaddress }}</a></li>
                     </ul>
                 </div>
                 
