@@ -1,0 +1,33 @@
+---
+- name: Loops Plyabook
+  hosts: linux3
+  become: yes
+
+
+  tasks:
+
+  - name: Say Hello to All
+    debug: msg="Hello {{item}}"
+    loop:
+        - "Vasya"
+        - "Petya"
+        - "Masha"
+        - "olya"
+  - name: Loop Until example
+    shell: echo -n Z >> myfile.txt && cat myfile.txt
+    register: output
+    delay: 2
+    retries: 10
+    until: output.stdout.find("ZZZZ") == false
+
+
+  - name: Print final Output
+    debug:
+      var: output.stdout
+
+#  - name: Install many package 
+#    yum: name={{ item }} state=installed
+#    with_items:
+#          - pyton
+#          - tree
+#          - mysql-client
