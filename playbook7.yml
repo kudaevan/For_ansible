@@ -4,60 +4,6 @@
   hosts: all
   become: yes
 
-  vars:
-    source_folder: ./MyWebSite2
-    destin_folder: /var/www/html
-
-
-  tasks:
-
-  - name: Check and print OS family
-    debug: var=ansible_os_family
-
-
-  - block:   #======= Block for RedHat=======
-
-      - name: Install Apache Web Server for Redhat
-        yum: name=httpd state=latest
-
-      - name: Start WebServer for RedHat
-        service: name=httpd state=started enabled=yes
-
-    when: ansible_os_family == "RedHat"
-
-  - block:  #========= Block for Debian========
-
-      - name: Install Apache Web Servr for Debian
-        apt: name=apache2 state=latest
-
-      - name: Start WebServer for Debian
-        service: name=apache2 state=started enabled=yes
-
-    when: ansible_os_family == "Debian"
-
-  - name: Genegate INDEX.HTML
-    template: src={{ source_folder}}/index.j2 dest={{destin_folder}}/index.html mode=0555
-    notify:
-    - Restart Apache RedHat
-    - Restart Apache Debian
-
-  - name: Copy MyHomePage to Servers
-    copy: src={{ source_folder }}/{{ item }} dest={{ destin_folder }} mode=0555
-    loop: 
-       - "facial1.jpg"
-       - "facial2.jpg"
-       - "facial3.jpg"
-       - "logo.jpg"
-       - "home.jpg"
-    notify:
-    - Restart Apache RedHat
-    - Restart Apache Debian
-
-  handlers:
-  - name: Restart Apache RedHat
-    service: name=httpd state=restarted
-    when: ansible_os_family == "RedHat"
-
-  - name: Restart Apache Debian
-    service: name=apache2 state=restarted 
-    when: ansible_os_family == "Debian"
+  roles:
+    - { role: deploy_apache_web, when: ansible_system == 'Linux' }
+    

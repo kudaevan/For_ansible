@@ -1,0 +1,42 @@
+---
+# tasks file for deploy_apache_web
+
+
+
+  - block:   #======= Block for RedHat=======
+
+      - name: Install Apache Web Server for Redhat
+        yum: name=httpd state=latest
+
+      - name: Start WebServer for RedHat
+        service: name=httpd state=started enabled=yes
+
+    when: ansible_os_family == "RedHat"
+
+  - block:  #========= Block for Debian========
+
+      - name: Install Apache Web Servr for Debian
+        apt: name=apache2 state=latest
+
+      - name: Start WebServer for Debian
+        service: name=apache2 state=started enabled=yes
+
+    when: ansible_os_family == "Debian"
+
+  - name: Genegate INDEX.HTML
+    template: src=index.j2 dest={{destin_folder}}/index.html
+    notify:
+    - Restart Apache RedHat
+    - Restart Apache Debian
+
+  - name: Copy MyHomePage to Servers
+    copy: src={{ item }} dest={{ destin_folder }} mode=0555
+    loop: 
+       - "facial1.jpg"
+       - "facial2.jpg"
+       - "facial3.jpg"
+       - "logo.jpg"
+       - "home.jpg"
+    notify:
+    - Restart Apache RedHat
+    - Restart Apache Debian
