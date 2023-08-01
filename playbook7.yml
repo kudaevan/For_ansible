@@ -1,7 +1,7 @@
 ---
 
 - name: Install and Upload my Web Page
-  hosts: all
+  hosts: "{{ MYHOST}}"
   become: yes
 
   roles:
