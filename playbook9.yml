@@ -1,0 +1,54 @@
+---
+
+- name: Playbook for Lesson18(delegate)
+  hosts: all
+  become: yes
+
+  vars: 
+    mytext: "Privet ot Andrey"
+
+
+  tasks:
+  - name: Ping to servers
+    ping:
+
+  - name: Unregister Server from LoadBalancer
+    shell: echo This server {{ inventory_hostname }} was deregistered from our LoadBalancer,  node name is {{ ansible_nodename }} >> /home/kan/log.txt
+    delegate_to: 127.0.0.1
+#    become: no
+
+  - name: Update my DateBase
+    shell: echo UPDATING Database
+    run_once: true
+
+  - name: Create file1
+    copy:
+      dest: /home/file1.txt
+      content: |
+         This is File1
+         On ENGLISH Hello World
+         On RUSSIAN {{ mytext }}
+    delegate_to: linux3
+
+  - name: Create file2
+    copy:
+      dest: /home/file2.txt
+      content: |
+           This is File2
+           On ENGLISH Hello World
+           On RUSSIAN {{ mytext }}
+
+
+  - name: Reboot My Servers
+    shell: sleep & reboot now
+    async: 1
+    poll: 0
+
+  - name: Wait till mu servers will come uo online
+#    become: no
+    wait_for:
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 5
+        timeout: 40
+    delegate_to: 127.0.0.1

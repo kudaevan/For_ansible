@@ -8,21 +8,3 @@ linux3 ansible_host=192.168.122.184   owner=Petya
 linux4 ansible_host=192.168.122.106   owner=Vasya
 #linux2 ansible_host=192.168.122.52
 
-#[ALL_LINUX:children]
-#staging_servers_WEB
-#prod_servers_WEB
-
-#[staging_servers_DB]
-#172.31.27.1
-#172.31.27.2
-
-#[prod_servers_DB]
-#172.32.27.10
-#172.32.27.20
-
-#[all_servers_DB:children]
-#staging_servers_DB
-#prod_servers_DB
-
-
-
