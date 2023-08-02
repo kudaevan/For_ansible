@@ -1,0 +1,18 @@
+---
+
+- name: My playbook for Lesson17
+  hosts: all
+  become: yes
+
+
+  vars:
+   mytext: "Privet ot Andrey"
+
+  tasks:
+
+  - name: Ping test
+    ping:
+
+  - include_tasks: create_folder.yml
+
+  - include_tasks: create_files.yml
