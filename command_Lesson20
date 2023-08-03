@@ -1,0 +1,22 @@
+ansible-vault create mysecret.txt
+
+ansible-vault view mysecret.txt
+
+ansible-vault edit mysecret.txt
+
+ansible-vault rekey mysecret.txt
+
+ansible-vault enrypt playbook11.yml
+
+ansible-vault decrypt playbook11.yml
+
+ansible-playbook playbook11.yml --ask-vault-pass
+
+ansible-playbook playabook11.yml --vault-password-file mypass.xt
+
+ansible-vault encrypt_string
+
+ansible-vault encrypt_string --stdin-name "mypassword"
+
+echo -n "MYSECRETPASS" | ansible-vault encrypt_string
+
