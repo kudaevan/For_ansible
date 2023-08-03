@@ -1,0 +1,25 @@
+---
+
+- name: Ansible for Lesson19
+  hosts: all
+  any_errors_fatal: true
+  become: yes
+
+
+  tasks:
+  - name: Task Number 1
+    yum: name=tree state=latest
+    ignore_errors: yes
+
+  - name: Task Number 2
+    shell: cat /home/user/myfile.txt 
+    register: results
+
+#   failed_when: "'World' in result.stdout"
+
+  -  debug: 
+      var: results
+
+
+  - name: Task Number 3
+    shell: echo Privet Andrey!!!
